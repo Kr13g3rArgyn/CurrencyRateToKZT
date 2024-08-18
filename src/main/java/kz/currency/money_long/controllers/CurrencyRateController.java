@@ -24,8 +24,8 @@ public class CurrencyRateController {
         return currencyRateService.fetchCurrencyRate();
     }
 
-    @GetMapping("/paid-api")
+    @GetMapping("/paid-api") //I didn't pay
     public List<CurrencyRateEntity> getLatestCurrencyRateFromPaidApi(){
-        return currencyRateService.fetchCurrencyRateFromPaidApi();
+        return currencyRateService.fetchCurrencyRateForPeriod();
     }
 }

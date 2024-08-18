@@ -1,11 +1,13 @@
 api:
   v1:
-    url: https://back.halykbank.kz/common/currency-history
+    url: https://back.halykbank.kz/common/currency-history #Бесплатная версия с нашим отечественным банком, но за последние 3 дня
   v2:
-    url: https://api.currencyapi.com/v3/latest
-    key: PKLJzvgv4OXzRmDSRqMThopJ7gJHpupHQ9gSoIbt
-    base_currency: KZT
-    currencies: EUR
+    url: https://api.currencyfreaks.com/v2.0/timeseries
+    apikey: f58d54abc6ff45d0b76be28c060852f6
+    start-date: 2024-08-17 #За последние 10 дней, к сожалению фича платная
+    end-date: 2022-08-07
+    base_currency: EUR
+    currencies: KZT
 
 spring:
   jpa:

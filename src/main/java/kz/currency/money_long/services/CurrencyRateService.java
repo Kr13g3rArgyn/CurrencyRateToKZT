@@ -71,9 +71,34 @@ public class CurrencyRateService {
         return currencyRateEntities;
     }
 
-    public List<CurrencyRateEntity> fetchCurrencyRateFromPaidApi() {
-        //TODO fitch: implement fetching data from paid API by the last 10 days
-        return currencyRateRepository.findAll();
+    public List<CurrencyRateEntity> fetchCurrencyRateForPeriod() {
+        String url = apiConfiguration.getApiUrlFreakApi() +
+                "?apikey=" + apiConfiguration.getApiV2ApiKey() +
+                "&startDate=" + apiConfiguration.getStartDate() +
+                "&endDate=" + apiConfiguration.getEndDate() +
+                "&base=" + apiConfiguration.getBaseCurrency() +
+                "&symbols=" + apiConfiguration.getCurrencies();
+
+        String response = restTemplate.getForObject(url, String.class);
+        JsonObject root = JsonParser.parseString(Objects.requireNonNull(response)).getAsJsonObject();
+        JsonObject ratesData = root.getAsJsonObject("rates");
+        List<CurrencyRateEntity> currencyRateEntities = new ArrayList<>();
+
+        ratesData.entrySet().forEach(entry -> {
+            LocalDate date = LocalDate.parse(entry.getKey());
+            JsonObject currencyRates = entry.getValue().getAsJsonObject();
+            Double rate = currencyRates.get(apiConfiguration.getCurrencies()).getAsDouble();
+
+            CurrencyRateEntity currencyRateEntity = new CurrencyRateEntity();
+            currencyRateEntity.setCurrency(CurrencyEnum.valueOf(apiConfiguration.getBaseCurrency()));
+            currencyRateEntity.setBuyRate(rate);
+            currencyRateEntity.setSellRate(rate);
+            currencyRateEntity.setDate(date);
+
+            currencyRateEntities.add(currencyRateEntity);
+        });
+
+        return currencyRateEntities;
     }
 }
 
