@@ -1,5 +1,11 @@
 api:
-  url: https://back.halykbank.kz/common/currency-history
+  v1:
+    url: https://back.halykbank.kz/common/currency-history
+  v2:
+    url: https://api.currencyapi.com/v3/latest
+    key: PKLJzvgv4OXzRmDSRqMThopJ7gJHpupHQ9gSoIbt
+    base_currency: KZT
+    currencies: EUR
 
 spring:
   jpa:
@@ -11,4 +17,3 @@ spring:
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
-# ?????? ???? ?????? ? ??????, ????????

@@ -18,7 +18,7 @@ public class CurrencyRateEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
-    private Currency currency;
+    private CurrencyEnum currency;
     private Double buyRate;
     private Double sellRate;
     private LocalDate date;
